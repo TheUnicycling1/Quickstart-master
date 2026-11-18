@@ -10,13 +10,14 @@ import org.firstinspires.ftc.teamcode.pedro.Constants;
 import com.pedropathing.drivetrain.DrivePowers;
 import com.pedropathing.follower.ManualDrive;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.HardwareMap;
 
 @TeleOp(name = "Turret Test")
 public class turretTest extends OpMode {
 
     private Follower follower;
 
-    private DcMotor turretMotor = hardwareMap.dcMotor.get("turretMotor");
+    DcMotor turret = hardwareMap.get(DcMotor.class, "turretMotor");
 
     Pose robotPose = follower.pose();
 
@@ -59,12 +60,12 @@ public class turretTest extends OpMode {
     }
 
     public double turnTurretBy(double degrees){
-        double currentPosition = turretMotor.getCurrentPosition();
+        double currentPosition = turret.getCurrentPosition();
         double TARGET_TICK_VALUE = angleToEncoderTicks(degrees) + currentPosition;
 
-        turretMotor.setTargetPosition((int) TARGET_TICK_VALUE);
-        turretMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        turretMotor.setPower(1);
+        turret.setTargetPosition((int) TARGET_TICK_VALUE);
+        turret.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        turret.setPower(1);
         return currentPosition;
     }
 
@@ -75,8 +76,8 @@ public class turretTest extends OpMode {
         double destinationAngle = Math.atan2(objectY - robotYPosition,
                 objectX - robotXPosition);
 
-       double turretAngle = encoderTicksToAngle(turretMotor.getCurrentPosition());
-       double robotAngle = Math.toDegrees(robotPose.heading());
+        double turretAngle = encoderTicksToAngle(turret.getCurrentPosition());
+        double robotAngle = Math.toDegrees(robotPose.heading());
 
         double toTurn = destinationAngle - (turretAngle + robotAngle);
         turnTurretBy(toTurn%360); // take the mod/remainder of toTurn/360
