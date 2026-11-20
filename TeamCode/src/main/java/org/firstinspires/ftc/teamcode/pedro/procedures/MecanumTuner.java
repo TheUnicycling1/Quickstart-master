@@ -76,6 +76,7 @@ public class MecanumTuner extends Procedure {
 
 class SpinMotor extends TuningOpMode<Void> {
     private final String name;
+
     public SpinMotor(String displayName, String hardwareName) {
         super(displayName, "The " + displayName.toLowerCase() + " motor will spin. The interactive diagram shows which way is forward. Click stop when you know if it is spinning forward or reversed.", true);
         this.name = hardwareName;

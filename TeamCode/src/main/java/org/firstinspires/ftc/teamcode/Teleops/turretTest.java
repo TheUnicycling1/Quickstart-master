@@ -17,7 +17,7 @@ public class turretTest extends OpMode {
 
     private Follower follower;
 
-    DcMotor turret = hardwareMap.get(DcMotor.class, "turretMotor");
+
 
     Pose robotPose = follower.pose();
 
@@ -60,6 +60,7 @@ public class turretTest extends OpMode {
     }
 
     public double turnTurretBy(double degrees){
+        DcMotor turret = hardwareMap.get(DcMotor.class, "turretMotor");
         double currentPosition = turret.getCurrentPosition();
         double TARGET_TICK_VALUE = angleToEncoderTicks(degrees) + currentPosition;
 
@@ -72,6 +73,7 @@ public class turretTest extends OpMode {
 
     // you would call aimtoobject when you want the turret to move.
     public void aimToObject(int objectX, int objectY){
+        DcMotor turret = hardwareMap.get(DcMotor.class, "turretMotor");
         double robotYPosition = robotPose.x(), robotXPosition = robotPose.y();
         double destinationAngle = Math.atan2(objectY - robotYPosition,
                 objectX - robotXPosition);
