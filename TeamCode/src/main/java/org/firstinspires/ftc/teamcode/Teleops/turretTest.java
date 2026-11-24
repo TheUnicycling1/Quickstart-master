@@ -17,8 +17,7 @@ public class turretTest extends OpMode {
 
     private Follower follower;
 
-
-
+// Define the robot pose at the start of the match
     Pose robotPose = follower.pose();
 
     @Override
