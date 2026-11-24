@@ -15,6 +15,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 public class turretTest extends OpMode {
 
     private Follower follower;
+    DcMotor turret; 
 
 // Define the robot pose at the start of the match
     Pose robotPose;
@@ -23,6 +24,7 @@ public class turretTest extends OpMode {
     @Override
     public void init() {
         follower = Constants.create(hardwareMap);
+        turret = hardwareMap.get(DcMotor.class, "turretMotor");
     }
     Pose origin = new Pose(0,0,0);
 
@@ -59,7 +61,7 @@ public class turretTest extends OpMode {
     }
 
     public void turnTurretBy(double degrees){
-        DcMotor turret = hardwareMap.get(DcMotor.class, "turretMotor");
+       
         double currentPosition = turret.getCurrentPosition();
         double TARGET_TICK_VALUE = angleToEncoderTicks(degrees) + currentPosition;
 
@@ -71,7 +73,7 @@ public class turretTest extends OpMode {
 
     // you would call aimtoobject when you want the turret to move.
     public void aimToObject(int objectX, int objectY){
-        DcMotor turret = hardwareMap.get(DcMotor.class, "turretMotor");
+       
         double robotYPosition = robotPose.x(), robotXPosition = robotPose.y();
         double destinationAngle = Math.atan2(objectY - robotYPosition,
                 objectX - robotXPosition);
