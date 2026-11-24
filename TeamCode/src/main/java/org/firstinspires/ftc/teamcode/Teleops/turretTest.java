@@ -10,7 +10,6 @@ import org.firstinspires.ftc.teamcode.pedro.Constants;
 import com.pedropathing.drivetrain.DrivePowers;
 import com.pedropathing.follower.ManualDrive;
 import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.HardwareMap;
 
 @TeleOp(name = "Turret Test")
 public class turretTest extends OpMode {
@@ -18,7 +17,8 @@ public class turretTest extends OpMode {
     private Follower follower;
 
 // Define the robot pose at the start of the match
-    Pose robotPose = follower.pose();
+    Pose robotPose;
+
 
     @Override
     public void init() {
@@ -43,7 +43,7 @@ public class turretTest extends OpMode {
         telemetry.addData("Robot Heading", Math.toDegrees(robotPose.heading()));
         telemetry.update();
 
-        if (true == gamepad1.right_trigger_pressed){
+        if (gamepad1.right_trigger_pressed){
             aimToObject(72, 72);
         }
     }
@@ -58,7 +58,7 @@ public class turretTest extends OpMode {
         return (degrees/scalingFactor);
     }
 
-    public double turnTurretBy(double degrees){
+    public void turnTurretBy(double degrees){
         DcMotor turret = hardwareMap.get(DcMotor.class, "turretMotor");
         double currentPosition = turret.getCurrentPosition();
         double TARGET_TICK_VALUE = angleToEncoderTicks(degrees) + currentPosition;
@@ -66,7 +66,6 @@ public class turretTest extends OpMode {
         turret.setTargetPosition((int) TARGET_TICK_VALUE);
         turret.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         turret.setPower(1);
-        return currentPosition;
     }
 
 
